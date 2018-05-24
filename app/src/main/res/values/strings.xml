@@ -1,0 +1,11 @@
+<resources>
+    <!-- Title for the application [CHAR LIMIT = 12] -->
+    <string name="app_name">News Report</string>
+
+    <!-- Text to display if there are no news [CHAR LIMIT=NONE] -->
+    <string name="noNews">No News found.</string>
+
+    <!-- Text to display if there is no internet connection [CHAR LIMIT=NONE] -->
+    <string name="noInternet">No Internet connection.</string>
+
+</resources>
