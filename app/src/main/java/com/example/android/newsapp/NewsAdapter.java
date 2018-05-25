@@ -1,7 +1,6 @@
 package com.example.android.newsapp;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -53,13 +52,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
         TextView sectionView = (TextView) listItemView.findViewById(R.id.section);
         //display the section name in that TextView
         sectionView.setText(currentNews.getName());
-        //set the proper background color for the section name
-        //fetch the background from the TextView, which is a GradientDrawable
-        //GradientDrawable sectionBackground = (GradientDrawable) sectionView.getBackground();
-        //get the appropriate background color based on the current section name
-       //int sectionColor = getSectionColor(currentNews.getName());
-        //set the background color on the section name
-       // sectionBackground.setColor(sectionColor);
 
         //find the TextView with the ID title
         TextView titleView = (TextView) listItemView.findViewById(R.id.title);
