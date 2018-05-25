@@ -5,12 +5,27 @@
     <color name="colorAccent">#10CAC9</color>
 
     <!-- Text color for the news detail in the list item -->
-    <color name="textColorNewsDetails">#B4BAC0</color>
+    <color name="textColorNewsDetails">#607d8b</color>
 
     <!-- Text color for the news title in the list item -->
     <color name="textColorNewsTitle">#2B3D4D</color>
 
     <!--background color for section name "Politics" -->
-    <color name="backgroundPolitics">#4A7BA7</color>
+    <color name="backgroundPolitics">#80d8ff</color>
+
+    <!--background color for section name "Opinion" -->
+    <color name="backgroundOpinion">#ff8a80</color>
+
+    <!--background color for section name "Life and Style" -->
+    <color name="backgroundLifeAndStyle">#ea80fc</color>
+
+    <!--background color for section name "Environment" -->
+    <color name="backgroundEnvironment">#ccff90</color>
+
+    <!--background color for section name "Society" -->
+    <color name="backgroundSociety">#ffe57f</color>
+
+    <!--default background color for item in the list -->
+    <color name="backgroundDefault">#eceff1</color>
 
 </resources>

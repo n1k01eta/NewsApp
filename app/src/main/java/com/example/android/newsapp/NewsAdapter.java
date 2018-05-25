@@ -5,20 +5,27 @@ import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by user on 23/5/2018.
  */
 
 public class NewsAdapter extends ArrayAdapter<News> {
+
+    private final static String LOG_TAG = NewsAdapter.class.getSimpleName();
 
     public NewsAdapter(Context context, List<News> news){
         super(context, 0, news);
@@ -41,18 +48,18 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
         //finds the news at the given position in the list of News
         News currentNews = getItem(position);
-
+        listItemView.findViewById(R.id.item).setBackgroundColor(getSectionColor(currentNews.getName()));
         //find theTextView with the ID section
         TextView sectionView = (TextView) listItemView.findViewById(R.id.section);
         //display the section name in that TextView
         sectionView.setText(currentNews.getName());
         //set the proper background color for the section name
         //fetch the background from the TextView, which is a GradientDrawable
-        GradientDrawable sectionBackground = (GradientDrawable) sectionView.getBackground();
+        //GradientDrawable sectionBackground = (GradientDrawable) sectionView.getBackground();
         //get the appropriate background color based on the current section name
-        int sectionColor = getSectionColor(currentNews.getName());
+       //int sectionColor = getSectionColor(currentNews.getName());
         //set the background color on the section name
-        sectionBackground.setColor(sectionColor);
+       // sectionBackground.setColor(sectionColor);
 
         //find the TextView with the ID title
         TextView titleView = (TextView) listItemView.findViewById(R.id.title);
@@ -60,22 +67,22 @@ public class NewsAdapter extends ArrayAdapter<News> {
         titleView.setText(currentNews.getTitle());
 
         //create a new SimpleDateFormat Object from the date in format "EEE, MMM d, ''yy"
-        SimpleDateFormat dateObject = new SimpleDateFormat("EEE, MMM d, ''yy");
-        String date = dateObject.format(currentNews.getDate());
+
+        SimpleDateFormat dateFormatJSON = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("EE dd MMM yyyy", Locale.ENGLISH);
+        String date = "";
+        try {
+            Date dateNews = dateFormatJSON.parse(currentNews.getDate());
+            date = dateFormat2.format(dateNews);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         //find the TextView with the view ID date
         TextView dateView = (TextView) listItemView.findViewById(R.id.date);
         //Display the date of the current news in that TextView
         dateView.setText(date);
 
-        //create a new SimpleDateFormat object from the date in format "h:mm a"
-        SimpleDateFormat timeObject = new SimpleDateFormat("h:mm a");
-        String time = timeObject.format(currentNews.getDate());
-
-        //find the TextView with the view ID time
-        TextView timeView = (TextView) listItemView.findViewById(R.id.time);
-        //Display the time in the current news in that TextView
-        timeView.setText(time);
 
         return listItemView;
     }
@@ -93,11 +100,40 @@ public class NewsAdapter extends ArrayAdapter<News> {
             case "Politics":
                 sectionColorRessourceID = R.color.backgroundPolitics;
                 break;
+            case "Opinion":
+                sectionColorRessourceID = R.color.backgroundOpinion;
+                break;
+            case "Society":
+                sectionColorRessourceID = R.color.backgroundSociety;
+                break;
+            case "Life and Style":
+                sectionColorRessourceID = R.color.backgroundLifeAndStyle;
+                break;
+            case "Environment":
+                sectionColorRessourceID = R.color.backgroundEnvironment;
+                break;
             default:
-                sectionColorRessourceID = R.color.colorPrimaryDark;
+                sectionColorRessourceID = R.color.backgroundDefault;
                 break;
         }
 
         return ContextCompat.getColor(getContext(), sectionColorRessourceID);
     }
+
+    /**
+     * Return the parsed date
+     */
+    private Date parseDate(String dateString){
+        DateFormat df = new SimpleDateFormat("LLL dd, yyyy");
+        Date dateObject = null;
+        try {
+            dateObject = df.parse(dateString);
+        } catch (ParseException e) {
+            Log.e(LOG_TAG, "Parse Date problem", e);
+        }
+
+        return dateObject;
+    }
+
+
 }
