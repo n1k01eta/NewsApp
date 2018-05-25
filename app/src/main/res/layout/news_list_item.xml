@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/medium_dimen"
-    android:background="@color/backgroundDefault">
+    android:layout_marginBottom="@dimen/small_margin"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardUseCompatPadding="true"
+    >
 
 
     <TextView
@@ -40,7 +44,8 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:textColor="@color/textColorNewsTitle"
+        android:textStyle="bold"
         android:textSize="@dimen/mediumText"
         tools:text="Long placeholder that should wrap no more than 2 lines of text"/>
 
-</LinearLayout>
+</android.support.v7.widget.CardView>
