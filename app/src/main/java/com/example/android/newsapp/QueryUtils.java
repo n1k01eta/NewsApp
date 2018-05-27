@@ -28,6 +28,20 @@ public final class QueryUtils {
     // Tag for the log messages
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
+    // Keys used for the Internet connection
+    private static final int READ_TIMEOUT = 10000;
+    private static final int CONNECT_TIMEOUT = 15000;
+
+    // Keys used for the JSON response
+    private static final String KEY_TITLE = "webTitle";
+    private static final String KEY_SECTION = "sectionName";
+    private static final String KEY_PUBLICATION_DATE = "webPublicationDate";
+    private static final String KEY_URL = "webUrl";
+    private static final String KEY_RESPONSE = "response";
+    private static final String KEY_RESULTS = "results";
+    private static final String KEY_TAGS = "tags";
+    private static final String KEY_AUTHOR = "webTitle";
+
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
      * This class is only meant to hold static variables and methods, which can be accessed
@@ -87,8 +101,8 @@ public final class QueryUtils {
         InputStream inputStream = null;
         try{
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /*milliseconds*/);
-            urlConnection.setConnectTimeout(15000 /*milliseconds*/);
+            urlConnection.setReadTimeout(READ_TIMEOUT /*milliseconds*/);
+            urlConnection.setConnectTimeout(CONNECT_TIMEOUT /*milliseconds*/);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
@@ -151,11 +165,11 @@ public final class QueryUtils {
         try{
             //create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
-            JSONObject responseJSON = baseJsonResponse.getJSONObject("response");
+            JSONObject responseJSON = baseJsonResponse.getJSONObject(KEY_RESPONSE);
 
             //extract the JSONArray associated with the key called "results" which represents
             //list of news results
-            JSONArray newsArray = responseJSON.getJSONArray("results");
+            JSONArray newsArray = responseJSON.getJSONArray(KEY_RESULTS);
 
             //for each news in the newsArray, create a {@link News} object
             for (int i = 0; i < newsArray.length(); i++) {
@@ -163,21 +177,43 @@ public final class QueryUtils {
                 JSONObject currentNews = newsArray.getJSONObject(i);
 
                 // extract the value for the key called "sectionName"
-                String section = currentNews.getString("sectionName");
+                String section = currentNews.getString(KEY_SECTION);
 
-                // extract the value for the key called "webPublicationDate"
-                String webDate = currentNews.getString("webPublicationDate");
+                // if present, extract the value for the key called "webPublicationDate"
+                String webDate = "N/A";
+                if (currentNews.has(KEY_PUBLICATION_DATE)){
+                    webDate =  currentNews.getString(KEY_PUBLICATION_DATE);;
+                }
 
                 // extract the value for the key called "webTitle"
-                String title = currentNews.getString("webTitle");
+                String title = currentNews.getString(KEY_TITLE);
 
                 // extract the value for the key called "webUrl"
-                String webUrl = currentNews.getString("webUrl");
+                String webUrl = currentNews.getString(KEY_URL);
+
+                //Extract the JSONArray associated with the key called "tags",
+                JSONArray currentNewsAuthorArray = currentNews.getJSONArray(KEY_TAGS);
+
+                String newsAuthor = "N/A";
+
+                //Check if "tags" array contains data
+                int tagsLenght = currentNewsAuthorArray.length();
+
+
+                if (tagsLenght == 1) {
+                    // Create a JSONObject for author
+                    JSONObject currentNewsAuthor = currentNewsAuthorArray.getJSONObject(0);
+
+                    String newsAuthor1 = currentNewsAuthor.getString(KEY_AUTHOR);
+
+                    newsAuthor = "written by: " + newsAuthor1;
+
+                }
 
                 //create a new {@link News} object with the section Name, Date, Title and Url
                 //from the JSON response
 
-                News newsResponse = new News(section, webDate, title, webUrl);
+                News newsResponse = new News(section, webDate, newsAuthor, title, webUrl);
 
                 //add it to the list of news
                 news.add(newsResponse);

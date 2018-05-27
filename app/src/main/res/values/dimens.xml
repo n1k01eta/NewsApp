@@ -2,6 +2,8 @@
 <resources>
     <dimen name="medium_dimen">16dp</dimen>
     <dimen name="small_margin">8dp</dimen>
+    <dimen name="very_small_margin">2dp</dimen>
     <dimen name="smallText">12sp</dimen>
     <dimen name="mediumText">16sp</dimen>
+    <dimen name="largeText">20sp</dimen>
 </resources>

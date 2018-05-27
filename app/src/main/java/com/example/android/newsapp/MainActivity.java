@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     /** URL for news data from the guardian dataset */
     private static final String GUARDIAN_REQUEST_URL =
-            "https://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2018-05-23&api-key=test";
+            "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&page-size=15&q=politics&api-key=test";
 
     /**
      * Constant value for the news loader ID. we can choose an integer

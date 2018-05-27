@@ -53,6 +53,11 @@ public class NewsAdapter extends ArrayAdapter<News> {
         //display the section name in that TextView
         sectionView.setText(currentNews.getName());
 
+        //find the TextView with the ID section author
+        TextView authorView = (TextView) listItemView.findViewById(R.id.author);
+        //display the author name in that TextView
+        authorView.setText(currentNews.getAuthor());
+
         //find the TextView with the ID title
         TextView titleView = (TextView) listItemView.findViewById(R.id.title);
         //Display the title in that TextView
@@ -90,22 +95,22 @@ public class NewsAdapter extends ArrayAdapter<News> {
         int sectionColorRessourceID;
         switch (section) {
             case "Politics":
-                sectionColorRessourceID = R.color.backgroundPolitics;
+                sectionColorRessourceID = R.color.colorPolitics;
                 break;
             case "Opinion":
-                sectionColorRessourceID = R.color.backgroundOpinion;
+                sectionColorRessourceID = R.color.colorOpinion;
                 break;
             case "Society":
-                sectionColorRessourceID = R.color.backgroundSociety;
+                sectionColorRessourceID = R.color.colorSociety;
                 break;
             case "Life and Style":
-                sectionColorRessourceID = R.color.backgroundLifeAndStyle;
+                sectionColorRessourceID = R.color.colorLifeAndStyle;
                 break;
             case "Environment":
-                sectionColorRessourceID = R.color.backgroundEnvironment;
+                sectionColorRessourceID = R.color.colorEnvironment;
                 break;
             default:
-                sectionColorRessourceID = R.color.backgroundDefault;
+                sectionColorRessourceID = R.color.colorDefault;
                 break;
         }
 
